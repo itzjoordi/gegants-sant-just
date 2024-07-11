@@ -19,7 +19,7 @@ import gegants from "./Data/gegants.json";
         {
           gegants.map(({ background, name1, name2, image, link, id }) => (
             <div class:list={[background, id]}>
-              <div class="p-4 opacity-80 bg-white rounded-[45px]">
+              <div class="p-4 opacity-80 md:opacity-100 rounded-[45px] flex white-bg">
                 <div class="flex-col justify-center items-start gap-[93px] inline-flex ">
                   <div class="flex-col justify-start items-start flex">
                     <div
@@ -70,6 +70,10 @@ import gegants from "./Data/gegants.json";
   </div>
   <style>
     @media (width < 768px) {
+      .white-bg {
+        background-color: white;
+      }
+
       .vells {
         background-image: url("/gegants/vells.webp");
         background-size: cover;
