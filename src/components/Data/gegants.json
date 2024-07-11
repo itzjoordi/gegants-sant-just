@@ -35,7 +35,7 @@
   {
     "id": "montserrat",
     "name1": "Montserratona",
-    "name2": "La princesa del Pastor i la Justa, i construida per en Domènec Humbert, fou estrenada també el 1954, coincidint amb el Corpus.",
+    "name2": "La princesa del Pastor i la Justa, i construida per en Domènec Humbert, fou estrenada el 1955, coincidint amb el Corpus.",
     "background": "bg-zinc-100 rounded-[45px] shadow-card border border-blue justify-between items-center flex text-blue",
     "image": "./gegants/montserrat.webp",
     "origin": "Taller 'El Ingenio', Barcelona",
