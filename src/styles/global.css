@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   .font-outline {
     -webkit-text-stroke: 2.5px black;
@@ -11,6 +10,9 @@
   .font-outline-sm {
     -webkit-text-stroke: 1.2px black;
     background-color: transparent;
+  }
+  html {
+    @apply 2xl:text-xl 3xl:text-xl 4xl:text-xl;
   }
 }
 
@@ -30,4 +32,3 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
