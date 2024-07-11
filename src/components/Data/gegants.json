@@ -1,9 +1,9 @@
 [
   {
-    "id": 1,
+    "id": "vells",
     "name1": "Justa i Pastor",
     "name2": "Representen una parella de reis i la princesa, foren construïts per en Domènec Humbert i comprats a la botiga 'El Ingenio' de Barcelona , estrenats el 5 de Juny de 1954, coincidint amb el Corpus.",
-    "background": "p-4 bg-zinc-100 rounded-[45px] shadow-card border border-blue justify-between items-center flex text-blue",
+    "background": "bg-zinc-100 rounded-[45px] shadow-card border border-blue justify-between items-center flex text-blue",
     "image": "./gegants/vells.jpg",
     "origin": "Taller 'El Ingenio', Barcelona",
     "link": [
@@ -12,10 +12,10 @@
     ]
   },
   {
-    "id": 2,
+    "id": "nous",
     "name1": "Gentil i Flor de Neu",
     "name2": "Representen dos personatges de l'obra Canigó, de Mossèn Cinto Verdaguer. El llibre va ser escollit per consulta popular, ell era un guerrer i ella una fada. El seu constructor va ser en Manel Casserres i Boix.",
-    "background": "p-4 bg-yellow rounded-[45px] shadow-card border border-blue justify-between items-center flex text-blue",
+    "background": "bg-yellow rounded-[45px] shadow-card border border-blue justify-between items-center flex text-blue",
     "image": "./gegants/nous.jpg",
     "origin": "Taller de Manuel Casserres, Solsona",
     "link": [
@@ -24,19 +24,19 @@
     ]
   },
   {
-    "id": 3,
+    "id": "arrel",
     "name1": "L'Arrel",
     "name2": "Creada a partir de la imaginació dels alumnes de les escoles de Sant Just va baixar de la Penya del Moro per jugar amb totes les nenes i nens. Fou estrenada per les Festes de la Tardor de 2018.",
-    "background": "p-4 bg-blue rounded-[45px] shadow-card border border-blue justify-between items-center flex text-white",
+    "background": "bg-blue rounded-[45px] shadow-card border border-blue justify-between items-center flex text-white",
     "image": "./gegants/arrel.jpg",
     "origin": "Taller de Manuel Casserres, Solsona",
     "link": ["https://centreestudissantjustencs.cat/content/geganteta-arrel/"]
   },
   {
-    "id": 4,
+    "id": "montserrat",
     "name1": "Montserratona",
     "name2": "La princesa del Pastor i la Justa, i construida per en Domènec Humbert, fou estrenada també el 1954, coincidint amb el Corpus.",
-    "background": "p-4 bg-zinc-100 rounded-[45px] shadow-card border border-blue justify-between items-center flex text-blue",
+    "background": "bg-zinc-100 rounded-[45px] shadow-card border border-blue justify-between items-center flex text-blue",
     "image": "./gegants/montserrat.jpg",
     "origin": "Taller 'El Ingenio', Barcelona",
     "link": [
