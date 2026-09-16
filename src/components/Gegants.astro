@@ -33,37 +33,41 @@ import gegants from "./Data/gegants.json";
               decoding="async"
               class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 [transition-timing-function:cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-105 group-focus-within:scale-105"
             />
-            <div class="absolute inset-0 bg-[linear-gradient(to_top,rgba(10,12,28,0.62)_0%,rgba(10,12,28,0)_42%)]" />
-            <div class="absolute inset-0 opacity-0 transition-opacity duration-[450ms] ease-out group-hover:opacity-100 group-focus-within:opacity-100 bg-[linear-gradient(to_top,rgba(10,12,28,0.88)_0%,rgba(10,12,28,0.35)_60%,rgba(10,12,28,0.1)_100%)]" />
-            <div class="absolute inset-x-0 bottom-0 p-[22px] flex flex-col gap-1.5 text-white">
-              <p class="text-xs font-semibold uppercase tracking-[0.06em] text-yellow">
-                {gegant.tag}
-              </p>
+            <div class="absolute inset-0 bg-[linear-gradient(to_top,rgba(10,12,28,0.78)_0%,rgba(10,12,28,0.35)_28%,rgba(10,12,28,0)_50%)]" />
+            <div class="absolute inset-0 opacity-0 transition-opacity duration-[450ms] ease-out group-hover:opacity-100 group-focus-within:opacity-100 bg-[linear-gradient(to_top,rgba(10,12,28,0.9)_0%,rgba(10,12,28,0.55)_45%,rgba(10,12,28,0.15)_100%)]" />
+            <span class="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-white/85 backdrop-blur-md text-[11px] font-semibold uppercase tracking-[0.06em] text-ink">
+              {gegant.tag}
+            </span>
+            <div class="absolute inset-x-0 bottom-0 p-[22px] flex flex-col text-white">
               <h3 class="text-2xl leading-[1.15] font-bold tracking-[-0.02em]">
                 {gegant.name1}
               </h3>
-              <div class="flex flex-col gap-3 pt-1 opacity-0 translate-y-[10px] transition-[opacity,transform] duration-[450ms] ease-out group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0">
-                <p class="text-[15px] leading-[1.45] text-white/80 text-pretty">
-                  {gegant.summary}
-                </p>
-                <span class="flex items-center gap-1 text-[15px] font-medium">
-                  Més informació
-                  <svg
-                    width="11"
-                    height="11"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M4.5 2.5 8 6l-3.5 3.5"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
+              <div class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-[450ms] ease-out group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr]">
+                <div class="overflow-hidden">
+                  <div class="flex flex-col gap-3 pt-2.5 opacity-0 translate-y-[10px] transition-[opacity,transform] duration-[450ms] ease-out group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0">
+                    <p class="text-[15px] leading-[1.45] text-white/80 text-pretty">
+                      {gegant.summary}
+                    </p>
+                    <span class="flex items-center gap-1 text-[15px] font-medium">
+                      Més informació
+                      <svg
+                        width="11"
+                        height="11"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M4.5 2.5 8 6l-3.5 3.5"
+                          stroke="currentColor"
+                          stroke-width="1.6"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </a>
@@ -83,17 +87,19 @@ import gegants from "./Data/gegants.json";
               data-gegant-card
               class="shrink-0 w-[280px] snap-start flex flex-col gap-3.5"
             >
-              <img
-                src={gegant.image}
-                alt={gegant.name1}
-                loading="lazy"
-                decoding="async"
-                class="w-[280px] h-[400px] object-cover object-top rounded-[22px]"
-              />
-              <div class="flex flex-col gap-1 px-1">
-                <p class="text-xs font-semibold uppercase tracking-[0.06em] text-gold">
+              <div class="relative">
+                <img
+                  src={gegant.image}
+                  alt={gegant.name1}
+                  loading="lazy"
+                  decoding="async"
+                  class="w-[280px] h-[400px] object-cover object-top rounded-[22px]"
+                />
+                <span class="absolute top-3.5 left-3.5 px-2.5 py-1 rounded-full bg-white/85 backdrop-blur-md text-[11px] font-semibold uppercase tracking-[0.06em] text-ink">
                   {gegant.tag}
-                </p>
+                </span>
+              </div>
+              <div class="flex flex-col gap-1 px-1">
                 <h3 class="text-[22px] leading-[1.2] font-bold tracking-[-0.02em]">
                   {gegant.name1}
                 </h3>
