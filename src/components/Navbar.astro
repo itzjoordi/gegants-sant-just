@@ -1,6 +1,9 @@
 ---
-// Define your navigation links here
-const navLinks = [
+const navLinks: {
+  href: string;
+  label: string;
+  target?: "_blank";
+}[] = [
   { href: "/#inici", label: "Inici" },
   { href: "/#gegants", label: "Gegants" },
   {
@@ -14,88 +17,111 @@ const navLinks = [
 import Container from "./Container.astro";
 ---
 
-<header class="fixed top-0 z-50 w-full bg-white">
-  <nav class="w-full">
-    <Container>
-      <div class="flex flex-wrap items-center justify-between mx-auto py-3">
-        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src="/logo_escut_transparent.webp" class="h-24" alt="Logo" />
-        </a>
-        <button
-          data-collapse-toggle="navbar-default"
-          type="button"
-          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden focus:outline-none focus:ring-2"
-          aria-controls="navbar-default"
-          aria-expanded="false"
+<header
+  class="fixed top-0 z-50 w-full h-[48px] md:h-[52px] bg-canvas/80 backdrop-blur-xl backdrop-saturate-150 border-b border-black/[0.08]"
+>
+  <Container>
+    <nav
+      class="flex h-[48px] md:h-[52px] items-center justify-between"
+    >
+      <a href="/" class="flex items-center">
+        <img
+          src="/logo_escut_transparent.webp"
+          class="h-[26px] md:h-[30px] w-auto"
+          alt="Escut Colla Gegantera"
+        />
+      </a>
+
+      <ul class="hidden md:flex items-center gap-9 text-[13px] tracking-[-0.01em] text-ink">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                target={link.target}
+                rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
+                class="hover:text-link transition-colors"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <button
+        id="nav-toggle"
+        type="button"
+        class="md:hidden flex items-center justify-center w-11 h-11 -mr-2 text-ink"
+        aria-controls="nav-panel"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Obre el menú</span>
+        <svg
+          id="nav-toggle-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          aria-hidden="true"
         >
-          <span class="sr-only">Open main menu</span>
-          <svg
-            class="w-5 h-5"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 17 14"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 1h15M1 7h15M1 13h15"></path>
-          </svg>
-        </button>
-        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul
-            class="font-medium flex flex-col p-4 md:p-0 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white"
-          >
-            {
-              navLinks.map((link) => (
-                <li>
-                  <a
-                    href={link.href}
-                    target={link.target}
-                    class="block py-2 px-3 text-blue rounded md:bg-transparent md:p-0"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </div>
-    </Container>
-  </nav>
+          <path d="M3 7h14M3 13h14"></path>
+        </svg>
+      </button>
+    </nav>
+  </Container>
+
+  <div
+    id="nav-panel"
+    class="hidden md:hidden bg-canvas/95 backdrop-blur-xl border-b border-black/[0.08]"
+  >
+    <ul class="flex flex-col px-6 py-2 text-[15px] text-ink">
+      {
+        navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              target={link.target}
+              rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
+              class="block py-3"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </header>
 
-<script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
-    const navbar = document.getElementById("navbar-default");
+<script>
+  function initNavbar() {
+    const toggle = document.getElementById("nav-toggle");
+    const panel = document.getElementById("nav-panel");
+    if (!toggle || !panel) return;
 
-    // Check if navbar exists before adding event listeners
-    if (navbar) {
-      const toggleButton = document.querySelector(
-        '[data-collapse-toggle="navbar-default"]'
-      );
-      const navLinks = navbar.querySelectorAll("a");
+    const close = () => {
+      panel.classList.add("hidden");
+      toggle.setAttribute("aria-expanded", "false");
+    };
 
-      if (toggleButton) {
-        toggleButton.addEventListener("click", () =>
-          navbar.classList.toggle("hidden")
-        );
-      } else {
-        console.warn(
-          "Navbar toggle button not found. Toggle functionality might be affected."
-        );
-      }
+    const open = () => {
+      panel.classList.remove("hidden");
+      toggle.setAttribute("aria-expanded", "true");
+    };
 
-      navLinks.forEach((link) =>
-        link.addEventListener("click", () => navbar.classList.add("hidden"))
-      );
-    } else {
-      console.warn(
-        "Navbar element with ID 'navbar-default' not found. Navigation functionality might be affected."
-      );
-    }
-  });
+    toggle.addEventListener("click", () => {
+      const expanded = toggle.getAttribute("aria-expanded") === "true";
+      expanded ? close() : open();
+    });
+
+    panel.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", close);
+    });
+  }
+
+  document.addEventListener("astro:page-load", initNavbar);
 </script>

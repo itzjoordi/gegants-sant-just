@@ -1,99 +1,175 @@
 ---
 import Container from "./Container.astro";
-import Topic from "./Topic.astro";
 import gegants from "./Data/gegants.json";
 ---
 
-<Container>
-  <div class="h-full pt-[120px]" id="gegants">
-    <div class="relative flex flex-col items-center md:flex-row text-blue">
-      <Topic
-        title="Gegants"
-        description="Coneix els gegants de Sant Just Desvern i la seva història!"
-      />
+<div id="gegants" class="bg-mist py-[72px] md:py-[120px]">
+  <Container width="wide">
+    <div class="flex flex-col gap-2 md:gap-3 mb-8 md:mb-14">
+      <h2
+        class="text-4xl md:text-[56px] leading-[1.1] md:leading-[1.07] font-bold tracking-[-0.025em] md:tracking-[-0.03em]"
+      >
+        Els gegants.
+      </h2>
+      <p class="text-[19px] md:text-2xl text-muted md:tracking-[-0.01em]">
+        Coneix-los i descobreix la seva història.
+      </p>
     </div>
 
-    <div class="flex-row items-center py-5">
-      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- card start-->
-        {
-          gegants.map(({ background, name1, name2, image, link, id }) => (
-            <div class:list={[background, id]}>
-              <div class="p-4 opacity-80 md:opacity-100 rounded-[45px] flex white-bg">
-                <div class="flex-col justify-center items-start gap-[93px] inline-flex ">
-                  <div class="flex-col justify-start items-start flex">
-                    <div
-                      class="px-[7px] bg-yellow-300 flex-col justify-start items-start gap-2.5 flex "
-                      style="max-width: 400px;"
-                    >
-                      <div class=" text-3xl font-medium">{name1}</div>
-                    </div>
-                    <div
-                      class="px-[7px] pt-4 bg-yellow-300 flex-col justify-start items-start gap-2.5 flex"
-                      style="max-width: 400px;"
-                    >
-                      <div class="text-normal font-normal">{name2}</div>
-                    </div>
-                  </div>
-
-                  <a
-                    class="justify-start items-center gap-[15px] inline-flex"
-                    href={link[0]}
-                    target="_blank"
+    <!-- Desktop / tablet grid -->
+    <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+      {
+        gegants.map((gegant) => (
+          <a
+            href={gegant.link[0]}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative block h-[420px] rounded-[22px] overflow-hidden bg-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2 focus-visible:ring-offset-mist"
+          >
+            <img
+              src={gegant.image}
+              alt={gegant.name1}
+              loading="lazy"
+              decoding="async"
+              class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 [transition-timing-function:cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-105 group-focus-within:scale-105"
+            />
+            <div class="absolute inset-0 bg-[linear-gradient(to_top,rgba(10,12,28,0.62)_0%,rgba(10,12,28,0)_42%)]" />
+            <div class="absolute inset-0 opacity-0 transition-opacity duration-[450ms] ease-out group-hover:opacity-100 group-focus-within:opacity-100 bg-[linear-gradient(to_top,rgba(10,12,28,0.88)_0%,rgba(10,12,28,0.35)_60%,rgba(10,12,28,0.1)_100%)]" />
+            <div class="absolute inset-x-0 bottom-0 p-[22px] flex flex-col gap-1.5 text-white">
+              <p class="text-xs font-semibold uppercase tracking-[0.06em] text-yellow">
+                {gegant.tag}
+              </p>
+              <h3 class="text-2xl leading-[1.15] font-bold tracking-[-0.02em]">
+                {gegant.name1}
+              </h3>
+              <div class="flex flex-col gap-3 pt-1 opacity-0 translate-y-[10px] transition-[opacity,transform] duration-[450ms] ease-out group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0">
+                <p class="text-[15px] leading-[1.45] text-white/80 text-pretty">
+                  {gegant.summary}
+                </p>
+                <span class="flex items-center gap-1 text-[15px] font-medium">
+                  Més informació
+                  <svg
+                    width="11"
+                    height="11"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    aria-hidden="true"
                   >
-                    <div class="w-[41px] h-[41px] relative">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="41"
-                        height="41"
-                        viewBox="0 0 24 24"
-                        style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"
-                      >
-                        <path d="M19.071 4.929c-3.899-3.898-10.243-3.898-14.143 0-3.898 3.899-3.898 10.244 0 14.143 3.899 3.898 10.243 3.898 14.143 0 3.899-3.9 3.899-10.244 0-14.143zm-3.536 10.607-2.828-2.829-3.535 3.536-1.414-1.414 3.535-3.536-2.828-2.829h7.07v7.072z" />
-                      </svg>
-                    </div>
-                    <div class="text-xl font-normal leading-7">
-                      Més informació
-                    </div>
-                  </a>
-                </div>
-                <div class="hidden md:flex w-52 h-auto p-1 justify-center items-center">
-                  <img class="h-auto rounded-lg" src={image} />
-                </div>
+                    <path
+                      d="M4.5 2.5 8 6l-3.5 3.5"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <!-- Mobile carousel -->
+    <div class="md:hidden -mx-6">
+      <div
+        id="gegants-carousel"
+        class="flex gap-3 overflow-x-auto snap-x snap-mandatory px-6 pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {
+          gegants.map((gegant) => (
+            <div
+              data-gegant-card
+              class="shrink-0 w-[280px] snap-start flex flex-col gap-3.5"
+            >
+              <img
+                src={gegant.image}
+                alt={gegant.name1}
+                loading="lazy"
+                decoding="async"
+                class="w-[280px] h-[400px] object-cover object-top rounded-[22px]"
+              />
+              <div class="flex flex-col gap-1 px-1">
+                <p class="text-xs font-semibold uppercase tracking-[0.06em] text-gold">
+                  {gegant.tag}
+                </p>
+                <h3 class="text-[22px] leading-[1.2] font-bold tracking-[-0.02em]">
+                  {gegant.name1}
+                </h3>
+                <p class="text-[15px] leading-[1.45] text-muted text-pretty">
+                  {gegant.summary}
+                </p>
+                <a
+                  href={gegant.link[0]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-1 h-11 text-[15px] text-link"
+                >
+                  Més informació
+                  <svg
+                    width="11"
+                    height="11"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M4.5 2.5 8 6l-3.5 3.5"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </a>
               </div>
             </div>
           ))
         }
-        <!-- card end-->
+      </div>
+      <div class="flex justify-center gap-2 mt-4" aria-hidden="true">
+        {
+          gegants.map((_, i) => (
+            <div
+              class="dot w-2 h-2 rounded-full bg-[#c7c7cc] data-[active=true]:bg-ink transition-colors"
+              data-index={i}
+              data-active={i === 0}
+            />
+          ))
+        }
       </div>
     </div>
-  </div>
-  <style>
-    @media (width < 768px) {
-      .white-bg {
-        background-color: white;
-      }
+  </Container>
+</div>
 
-      .vells {
-        background-image: url("/gegants/vells.webp");
-        background-size: cover;
-      }
+<script>
+  function initGegantsCarousel() {
+    const carousel = document.getElementById("gegants-carousel");
+    if (!carousel) return;
 
-      .nous {
-        background-image: url("/gegants/nous.webp");
-        background-size: cover;
-      }
+    const cards = Array.from(
+      carousel.querySelectorAll<HTMLElement>("[data-gegant-card]")
+    );
+    const dots = Array.from(document.querySelectorAll<HTMLElement>(".dot"));
+    if (!cards.length || !dots.length) return;
 
-      .arrel {
-        background-image: url("/gegants/arrel.webp");
-        color: rgb(35, 42, 85);
-        background-size: cover;
-      }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const index = cards.indexOf(entry.target as HTMLElement);
+          if (index === -1) return;
+          dots.forEach((dot, i) => {
+            dot.setAttribute("data-active", String(i === index));
+          });
+        });
+      },
+      { root: carousel, threshold: 0.6 }
+    );
 
-      .montserrat {
-        background-image: url("/gegants/montserrat.webp");
-        background-size: cover;
-      }
-    }
-  </style>
-</Container>
+    cards.forEach((card) => observer.observe(card));
+  }
+
+  document.addEventListener("astro:page-load", initGegantsCarousel);
+</script>

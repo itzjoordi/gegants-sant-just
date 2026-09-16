@@ -1,3 +1,13 @@
-<div class="max-w-screen-xl mx-auto px-6 md:px-14 xl:px-14">
+---
+interface Props {
+  width?: "default" | "wide";
+}
+
+const { width = "default" } = Astro.props;
+
+const maxWidth = width === "wide" ? "max-w-[1200px]" : "max-w-[1024px]";
+---
+
+<div class:list={["mx-auto px-6 md:px-0", maxWidth]}>
   <slot />
 </div>
