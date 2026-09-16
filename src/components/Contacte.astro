@@ -1,11 +1,10 @@
 ---
 import Container from "./Container.astro";
-import teamData from "./Data/team.json";
 ---
 
 <div id="contacte" class="py-20 md:py-[136px] md:pb-[144px]">
   <Container>
-    <div class="flex flex-col items-center gap-3 md:gap-4 text-center mb-10 md:mb-[72px]">
+    <div class="flex flex-col items-center gap-3 md:gap-4 text-center">
       <h2
         class="text-4xl md:text-[56px] leading-[1.1] md:leading-[1.07] font-bold tracking-[-0.025em] md:tracking-[-0.03em] text-balance"
       >
@@ -15,7 +14,7 @@ import teamData from "./Data/team.json";
         class="text-[19px] md:text-2xl leading-[1.4] md:leading-[1.35] text-muted max-w-[640px] text-pretty"
       >
         Busquem <span class="text-ink">portadors</span> i
-        <span class="text-ink">grallers</span>. Escriu-nos o truca’ns i vine a
+        <span class="text-ink">grallers</span>. Escriu-nos i vine a
         viure la festa des de dins.
       </p>
       <a
@@ -24,51 +23,6 @@ import teamData from "./Data/team.json";
       >
         gegants@santjust.org
       </a>
-    </div>
-
-    <!-- Desktop -->
-    <div class="hidden md:grid md:grid-cols-3 border-t border-line">
-      {
-        teamData.team.map(({ title, name, contact }, index) => (
-          <div
-            class:list={[
-              "flex flex-col gap-1.5 pt-8",
-              index > 0 && "pl-10 border-l border-line",
-            ]}
-          >
-            <p class="text-sm text-subtle">{title}</p>
-            <p class="text-xl font-semibold tracking-[-0.01em]">{name}</p>
-            <a
-              href={`tel:${contact.replace(/\s+/g, "")}`}
-              class="text-[17px] text-link"
-            >
-              {contact}
-            </a>
-          </div>
-        ))
-      }
-    </div>
-
-    <!-- Mobile -->
-    <div class="md:hidden flex flex-col">
-      {
-        teamData.team.map(({ title, name, contact }, index) => (
-          <div
-            class:list={[
-              "flex items-center justify-between py-[18px] border-t border-line",
-              index === teamData.team.length - 1 && "border-b",
-            ]}
-          >
-            <div class="flex flex-col gap-0.5">
-              <p class="text-[13px] text-subtle">{title}</p>
-              <p class="text-[17px] font-semibold">{name}</p>
-            </div>
-            <a href={`tel:${contact.replace(/\s+/g, "")}`} class="text-[16px] text-link">
-              {contact}
-            </a>
-          </div>
-        ))
-      }
     </div>
   </Container>
 </div>
