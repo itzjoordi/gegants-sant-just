@@ -1,5 +1,17 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import Container from "./Container.astro";
+
+// Cover slideshow: every image in src/assets/portada, ordered by the number
+// in its filename (portada-1 = oldest, highest = most recent).
+const coverModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/portada/*.{webp,jpg,jpeg,png}",
+  { eager: true }
+);
+const covers = Object.entries(coverModules)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, mod]) => mod.default);
 ---
 
 <div id="inici" class="pt-16 md:pt-[112px]">
@@ -57,11 +69,62 @@ import Container from "./Container.astro";
       </div>
     </div>
     <div class="flex justify-center pt-10 md:pt-[72px] pb-[72px] md:pb-[120px]">
-      <img
-        src="/portada.webp"
-        alt="La colla amb els gegants"
-        class="w-full max-w-[358px] md:max-w-[1024px] aspect-[358/240] md:aspect-[1024/648] object-cover rounded-[20px] md:rounded-[28px]"
-      />
+      <div
+        id="cover-slideshow"
+        role="img"
+        aria-label="La colla amb els gegants al llarg dels anys"
+        class="relative w-full max-w-[1024px] aspect-[358/240] md:aspect-[1024/648] overflow-hidden isolate rounded-[20px] md:rounded-[28px] bg-mist"
+      >
+        {
+          covers.map((cover, index) => (
+            <Image
+              src={cover}
+              alt=""
+              width={Math.min(cover.width, 2048)}
+              widths={[640, 1024, 1600, 2048].filter((w) => w <= cover.width)}
+              sizes="(min-width: 1072px) 1024px, calc(100vw - 48px)"
+              quality={75}
+              loading={index === 0 ? "eager" : "lazy"}
+              data-cover-slide
+              data-active={index === 0 ? "true" : "false"}
+              class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-[1200ms] ease-in-out data-[active=true]:opacity-100"
+            />
+          ))
+        }
+      </div>
     </div>
   </Container>
 </div>
+
+<script>
+  const INTERVAL_MS = 3500;
+  let timer: number | undefined;
+
+  function startCoverSlideshow() {
+    stopCoverSlideshow();
+    const root = document.getElementById("cover-slideshow");
+    if (!root) return;
+
+    const slides = Array.from(
+      root.querySelectorAll<HTMLElement>("[data-cover-slide]")
+    );
+    if (slides.length < 2) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let current = 0;
+    timer = window.setInterval(() => {
+      if (document.hidden) return;
+      slides[current].dataset.active = "false";
+      current = (current + 1) % slides.length;
+      slides[current].dataset.active = "true";
+    }, INTERVAL_MS);
+  }
+
+  function stopCoverSlideshow() {
+    if (timer !== undefined) window.clearInterval(timer);
+    timer = undefined;
+  }
+
+  document.addEventListener("astro:page-load", startCoverSlideshow);
+  document.addEventListener("astro:before-swap", stopCoverSlideshow);
+</script>
