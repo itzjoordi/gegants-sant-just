@@ -1,50 +1,78 @@
 [
   {
-    "id": "vells",
-    "name1": "Justa i Pastor",
-    "name2": "Representen una parella de reis i la princesa, foren construïts per en Domènec Humbert i comprats a la botiga 'El Ingenio' de Barcelona , estrenats el 5 de Juny de 1954, coincidint amb el Corpus.",
-    "tag": "1954",
+    "slug": "justa-i-pastor",
+    "name": "Justa i Pastor",
+    "year": 1954,
     "summary": "Una parella de reis construïda per Domènec Humbert i estrenada pel Corpus de 1954.",
-    "image": "/gegants/vells.webp",
-    "origin": "Taller 'El Ingenio', Barcelona",
-    "link": [
-      "https://centreestudissantjustencs.cat/content/geganta-justa/",
-      "https://centreestudissantjustencs.cat/content/gegant-pastor/"
+    "history": "Representen una parella de reis. Van ser construïts per en Domènec Humbert i comprats a la botiga 'El Ingenio' de Barcelona, i es van estrenar el 5 de juny de 1954, coincidint amb el Corpus.",
+    "builder": "Domènec Humbert",
+    "workshop": "Taller 'El Ingenio', Barcelona",
+    "image": "vells.webp",
+    "alt": "Els gegants Justa i Pastor, vestits de reis amb corona: ella amb un vestit clar de brodats vermells, capa blava i un ramell de flors, i ell amb una túnica vermella decorada amb rombes.",
+    "sources": [
+      {
+        "label": "Geganta Justa – Centre d’Estudis Santjustencs",
+        "url": "https://centreestudissantjustencs.cat/content/geganta-justa/"
+      },
+      {
+        "label": "Gegant Pastor – Centre d’Estudis Santjustencs",
+        "url": "https://centreestudissantjustencs.cat/content/gegant-pastor/"
+      }
     ]
   },
   {
-    "id": "nous",
-    "name1": "Gentil i Flor de Neu",
-    "name2": "Representen dos personatges de l'obra Canigó, de Mossèn Cinto Verdaguer. El llibre va ser escollit per consulta popular, ell era un guerrer i ella una fada. El seu constructor va ser en Manel Casserres i Boix.",
-    "tag": "1987",
+    "slug": "gentil-i-flor-de-neu",
+    "name": "Gentil i Flor de Neu",
+    "year": 1987,
     "summary": "El guerrer i la fada de l’obra de Mossèn Cinto Verdaguer, escollits per consulta popular.",
-    "image": "/gegants/nous.webp",
-    "origin": "Taller de Manuel Casserres, Solsona",
-    "link": [
-      "https://centreestudissantjustencs.cat/content/gegant-gentil/",
-      "https://centreestudissantjustencs.cat/content/gegant-flor-de-neu/"
+    "history": "Representen dos personatges de l’obra Canigó, de Mossèn Cinto Verdaguer. El llibre va ser escollit per consulta popular; ell era un guerrer i ella una fada. El seu constructor va ser en Manuel Casserres i Boix.",
+    "builder": "Manuel Casserres i Boix",
+    "workshop": "Taller de Manuel Casserres i Boix, Solsona",
+    "image": "nous.webp",
+    "alt": "Els gegants Gentil i Flor de Neu: ell, un guerrer amb casc, espasa i capa daurada sobre una túnica fosca, i ella, una fada amb un vestit blanc llarg i un ramet de flors a la mà.",
+    "sources": [
+      {
+        "label": "Gegant Gentil – Centre d’Estudis Santjustencs",
+        "url": "https://centreestudissantjustencs.cat/content/gegant-gentil/"
+      },
+      {
+        "label": "Geganta Flor de Neu – Centre d’Estudis Santjustencs",
+        "url": "https://centreestudissantjustencs.cat/content/gegant-flor-de-neu/"
+      }
     ]
   },
   {
-    "id": "arrel",
-    "name1": "L'Arrel",
-    "name2": "Creada a partir de la imaginació dels alumnes de les escoles de Sant Just va baixar de la Penya del Moro per jugar amb totes les nenes i nens. Fou estrenada per les Festes de la Tardor de 2018.",
-    "tag": "2018",
+    "slug": "arrel",
+    "name": "L’Arrel",
+    "year": 2018,
     "summary": "Nascuda de la imaginació dels alumnes de Sant Just, va baixar de la Penya del Moro per jugar.",
-    "image": "/gegants/arrel.webp",
-    "origin": "Taller de Manuel Casserres, Solsona",
-    "link": ["https://centreestudissantjustencs.cat/content/geganteta-arrel/"]
+    "history": "Creada a partir de la imaginació dels alumnes de les escoles de Sant Just, va baixar de la Penya del Moro per jugar amb totes les nenes i nens. Va ser estrenada per les Festes de la Tardor de 2018.",
+    "builder": "Manuel Casserres i Boix",
+    "workshop": "Taller de Manuel Casserres i Boix, Solsona",
+    "image": "arrel.webp",
+    "alt": "La geganteta l’Arrel, amb cabells foscos, jaqueta vermella, armilla de pell i faldilla granat amb una franja en ziga-zaga, que porta un pal en una mà i un escut rodó a l’altra.",
+    "sources": [
+      {
+        "label": "Geganteta Arrel – Centre d’Estudis Santjustencs",
+        "url": "https://centreestudissantjustencs.cat/content/geganteta-arrel/"
+      }
+    ]
   },
   {
-    "id": "montserrat",
-    "name1": "Montserratona",
-    "name2": "La princesa del Pastor i la Justa, i construida per en Domènec Humbert, fou estrenada el 1955, coincidint amb el Corpus.",
-    "tag": "1955",
+    "slug": "montserratona",
+    "name": "Montserratona",
+    "year": 1955,
     "summary": "La princesa de la Justa i el Pastor, també obra de Domènec Humbert.",
-    "image": "/gegants/montserrat.webp",
-    "origin": "Taller 'El Ingenio', Barcelona",
-    "link": [
-      "https://centreestudissantjustencs.cat/content/geganteta-montserrat/"
+    "history": "És la princesa, filla del Pastor i la Justa. Construïda també per en Domènec Humbert, es va estrenar el 1955, coincidint amb el Corpus.",
+    "builder": "Domènec Humbert",
+    "workshop": "Taller 'El Ingenio', Barcelona",
+    "image": "montserrat.webp",
+    "alt": "La geganta Montserratona, una princesa amb corona, capa blava, vestit rosa amb brodats florals i un ramell de flors a les mans.",
+    "sources": [
+      {
+        "label": "Geganteta Montserrat – Centre d’Estudis Santjustencs",
+        "url": "https://centreestudissantjustencs.cat/content/geganteta-montserrat/"
+      }
     ]
   }
 ]

@@ -5,9 +5,11 @@ interface Props {
 
 const { width = "default" } = Astro.props;
 
-const maxWidth = width === "wide" ? "max-w-[1200px]" : "max-w-[1024px]";
+// Max widths include the horizontal padding (2 × 40px on md+), so content
+// still maxes out at 1200px / 1024px.
+const maxWidth = width === "wide" ? "max-w-[1280px]" : "max-w-[1104px]";
 ---
 
-<div class:list={["mx-auto px-6 md:px-0", maxWidth]}>
+<div class:list={["mx-auto px-6 md:px-10", maxWidth]}>
   <slot />
 </div>

@@ -1,27 +1,24 @@
 ---
 import Container from "./Container.astro";
+import { withBase } from "../utils/url";
+
+const year = new Date().getFullYear();
 ---
 
 <footer id="footer" class="bg-mist">
   <Container>
     <div class="py-10 md:py-12 flex flex-col items-center gap-4 text-center">
       <img
-        src="/logo_escut_transparent.webp"
+        src={withBase("/logo_escut_transparent.webp")}
+        width="376"
+        height="211"
+        loading="lazy"
         class="h-10 md:h-12 w-auto"
-        alt="Escut Colla Gegantera"
+        alt="Escut de la Colla Gegantera"
       />
-      <p class="text-xs text-subtle">
-        © <span id="currentYear"></span> Colla Gegantera de Sant Just Desvern
+      <p class="text-xs text-muted">
+        © {year} Colla Gegantera de Sant Just Desvern
       </p>
     </div>
   </Container>
 </footer>
-
-<script>
-  function setFooterYear() {
-    const el = document.getElementById("currentYear");
-    if (el) el.textContent = String(new Date().getFullYear());
-  }
-
-  document.addEventListener("astro:page-load", setFooterYear);
-</script>

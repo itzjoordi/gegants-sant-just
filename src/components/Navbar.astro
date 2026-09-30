@@ -1,17 +1,19 @@
 ---
+import { withBase } from "../utils/url";
+
 const navLinks: {
   href: string;
   label: string;
   target?: "_blank";
 }[] = [
-  { href: "/#inici", label: "Inici" },
-  { href: "/#gegants", label: "Gegants" },
+  { href: withBase("/#inici"), label: "Inici" },
+  { href: withBase("/#gegants"), label: "Gegants" },
   {
     href: "https://ca.wikipedia.org/wiki/Gegants_de_Sant_Just_Desvern",
     target: "_blank",
     label: "Història",
   },
-  { href: "/#contacte", label: "Contacte" },
+  { href: withBase("/#contacte"), label: "Contacte" },
 ];
 
 import Container from "./Container.astro";
@@ -23,14 +25,18 @@ import SocialLinks from "./SocialLinks.astro";
 >
   <Container>
     <nav
+      aria-label="Principal"
       class="flex h-[48px] md:h-[52px] items-center justify-between"
     >
-      <a href="/" class="flex flex-1 items-center">
+      <a href={withBase("/")} class="flex flex-1 items-center">
         <img
-          src="/logo_escut_transparent.webp"
+          src={withBase("/logo_escut_transparent.webp")}
+          width="376"
+          height="211"
           class="h-[26px] md:h-[30px] w-auto"
-          alt="Escut Colla Gegantera"
+          alt=""
         />
+        <span class="sr-only">Colla Gegantera de Sant Just Desvern – Inici</span>
       </a>
 
       <ul class="hidden md:flex items-center gap-9 text-[13px] tracking-[-0.01em] text-ink">
@@ -44,6 +50,9 @@ import SocialLinks from "./SocialLinks.astro";
                 class="hover:text-link transition-colors"
               >
                 {link.label}
+                {link.target === "_blank" && (
+                  <span class="sr-only"> (s'obre en una pestanya nova)</span>
+                )}
               </a>
             </li>
           ))
@@ -59,7 +68,7 @@ import SocialLinks from "./SocialLinks.astro";
           aria-controls="nav-panel"
           aria-expanded="false"
         >
-          <span class="sr-only">Obre el menú</span>
+          <span id="nav-toggle-label" class="sr-only">Obre el menú</span>
           <svg
             id="nav-toggle-icon"
             width="20"
@@ -93,6 +102,9 @@ import SocialLinks from "./SocialLinks.astro";
               class="block py-3"
             >
               {link.label}
+              {link.target === "_blank" && (
+                <span class="sr-only"> (s'obre en una pestanya nova)</span>
+              )}
             </a>
           </li>
         ))
@@ -105,27 +117,33 @@ import SocialLinks from "./SocialLinks.astro";
   function initNavbar() {
     const toggle = document.getElementById("nav-toggle");
     const panel = document.getElementById("nav-panel");
+    const label = document.getElementById("nav-toggle-label");
     if (!toggle || !panel) return;
 
-    const close = () => {
-      panel.classList.add("hidden");
-      toggle.setAttribute("aria-expanded", "false");
-    };
-
-    const open = () => {
-      panel.classList.remove("hidden");
-      toggle.setAttribute("aria-expanded", "true");
+    const setState = (isOpen: boolean) => {
+      panel.classList.toggle("hidden", !isOpen);
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      if (label) label.textContent = isOpen ? "Tanca el menú" : "Obre el menú";
     };
 
     toggle.addEventListener("click", () => {
-      const expanded = toggle.getAttribute("aria-expanded") === "true";
-      expanded ? close() : open();
+      setState(toggle.getAttribute("aria-expanded") !== "true");
     });
 
     panel.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", close);
+      link.addEventListener("click", () => setState(false));
     });
   }
+
+  // Registered once (module scripts run once); elements are looked up on use
+  // because the header is re-created on every view transition.
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    const toggle = document.getElementById("nav-toggle");
+    if (!toggle || toggle.getAttribute("aria-expanded") !== "true") return;
+    toggle.click();
+    toggle.focus();
+  });
 
   document.addEventListener("astro:page-load", initNavbar);
 </script>

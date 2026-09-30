@@ -2,10 +2,15 @@
 import Container from "./Container.astro";
 ---
 
-<div id="contacte" class="py-20 md:py-[136px] md:pb-[144px]">
+<section
+  id="contacte"
+  aria-labelledby="contacte-title"
+  class="py-20 md:py-[136px] md:pb-[144px]"
+>
   <Container>
     <div class="flex flex-col items-center gap-3 md:gap-4 text-center">
       <h2
+        id="contacte-title"
         class="text-4xl md:text-[56px] leading-[1.1] md:leading-[1.07] font-bold tracking-[-0.025em] md:tracking-[-0.03em] text-balance"
       >
         Vols fer ballar un&nbsp;gegant?
@@ -25,4 +30,4 @@ import Container from "./Container.astro";
       </a>
     </div>
   </Container>
-</div>
+</section>

@@ -3,10 +3,55 @@ import Layout from "../layouts/Layout.astro";
 import Inici from "../components/Inici.astro";
 import Gegants from "../components/Gegants.astro";
 import Contacte from "../components/Contacte.astro";
+import { socials } from "../components/Data/socials";
+import { absoluteUrl } from "../utils/url";
+
+const orgId = absoluteUrl("/#organitzacio");
+const description =
+  "Colla gegantera de Sant Just Desvern (Baix Llobregat) des de 1984. Fem ballar gegants i capgrossos per tot el territori català.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "PerformingGroup",
+      "@id": orgId,
+      name: "Colla Gegantera de Sant Just Desvern",
+      alternateName: "Gegants de Sant Just",
+      url: absoluteUrl("/"),
+      logo: absoluteUrl("/logo_gegants.webp"),
+      image: absoluteUrl("/logo_gegants.webp"),
+      description,
+      foundingDate: "1984",
+      email: "gegants@santjust.org",
+      location: {
+        "@type": "Place",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Sant Just Desvern",
+          addressRegion: "Barcelona",
+          addressCountry: "ES",
+        },
+      },
+      sameAs: [
+        ...socials.map((social) => social.href),
+        "https://ca.wikipedia.org/wiki/Gegants_de_Sant_Just_Desvern",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": absoluteUrl("/#web"),
+      url: absoluteUrl("/"),
+      name: "Colla Gegantera de Sant Just Desvern",
+      inLanguage: "ca",
+      publisher: { "@id": orgId },
+    },
+  ],
+};
 ---
 
-<Layout>
-  <main>
+<Layout jsonLd={jsonLd}>
+  <main id="contingut" tabindex="-1" class="focus:outline-none">
     <Inici />
     <Gegants />
     <Contacte />

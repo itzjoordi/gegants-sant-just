@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import Container from "./Container.astro";
+import { withBase } from "../utils/url";
 
 // Cover slideshow: every image in src/assets/portada, ordered by the number
 // in its filename (portada-1 = oldest, highest = most recent).
@@ -14,13 +15,17 @@ const covers = Object.entries(coverModules)
   .map(([, mod]) => mod.default);
 ---
 
-<div id="inici" class="pt-16 md:pt-[112px]">
+<section
+  id="inici"
+  aria-labelledby="inici-title"
+  class="pt-16 md:pt-[112px]"
+>
   <Container width="wide">
     <div class="flex flex-col items-center gap-3.5 md:gap-5 text-center">
       <p class="text-[15px] md:text-[17px] font-semibold text-blue tracking-[0.01em]">
         Des de 1984
       </p>
-      <h1 class="flex flex-col items-center text-ink max-w-[980px]">
+      <h1 id="inici-title" class="flex flex-col items-center text-ink max-w-[980px]">
         <span
           class="font-script font-bold text-blue text-[64px] md:text-[120px] leading-[1] tracking-normal"
         >
@@ -41,13 +46,13 @@ const covers = Object.entries(coverModules)
         class="flex flex-col md:flex-row gap-3.5 md:gap-7 items-center mt-3 md:mt-4"
       >
         <a
-          href="#gegants"
+          href={withBase("/#gegants")}
           class="flex items-center h-11 px-[22px] rounded-full bg-blue text-white text-[17px]"
         >
           Coneix els gegants
         </a>
         <a
-          href="#contacte"
+          href={withBase("/#contacte")}
           class="flex items-center gap-1 h-11 md:h-auto text-[17px] text-link"
         >
           Contacta’ns
@@ -70,10 +75,13 @@ const covers = Object.entries(coverModules)
     </div>
     <div class="flex justify-center pt-10 md:pt-[72px] pb-[72px] md:pb-[120px]">
       <div
+        class="relative w-full max-w-[1024px] aspect-[358/240] md:aspect-[1024/648] isolate"
+      >
+      <div
         id="cover-slideshow"
         role="img"
         aria-label="La colla amb els gegants al llarg dels anys"
-        class="relative w-full max-w-[1024px] aspect-[358/240] md:aspect-[1024/648] overflow-hidden isolate rounded-[20px] md:rounded-[28px] bg-mist"
+        class="absolute inset-0 overflow-hidden rounded-[20px] md:rounded-[28px] bg-mist"
       >
         {
           covers.map((cover, index) => (
@@ -92,13 +100,52 @@ const covers = Object.entries(coverModules)
           ))
         }
       </div>
+        {
+          covers.length > 1 && (
+            <button
+              id="cover-toggle"
+              type="button"
+              aria-label="Atura el passi de fotos"
+              class="absolute bottom-3 right-3 md:bottom-4 md:right-4 z-10 flex items-center justify-center w-9 h-9 rounded-full bg-black/45 backdrop-blur-md text-white transition-colors hover:bg-black/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
+            >
+              <svg
+                data-icon="pause"
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <rect x="3" y="2" width="2.5" height="10" rx="1" />
+                <rect x="8.5" y="2" width="2.5" height="10" rx="1" />
+              </svg>
+              <svg
+                data-icon="play"
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="currentColor"
+                aria-hidden="true"
+                class="hidden"
+              >
+                <path d="M4 2.5v9l7.5-4.5z" />
+              </svg>
+            </button>
+          )
+        }
+      </div>
     </div>
   </Container>
-</div>
+</section>
 
 <script>
   const INTERVAL_MS = 3500;
   let timer: number | undefined;
+
+  function stopCoverSlideshow() {
+    if (timer !== undefined) window.clearInterval(timer);
+    timer = undefined;
+  }
 
   function startCoverSlideshow() {
     stopCoverSlideshow();
@@ -109,20 +156,38 @@ const covers = Object.entries(coverModules)
       root.querySelectorAll<HTMLElement>("[data-cover-slide]")
     );
     if (slides.length < 2) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const toggle = document.getElementById("cover-toggle");
+    const pauseIcon = toggle?.querySelector<HTMLElement>('[data-icon="pause"]');
+    const playIcon = toggle?.querySelector<HTMLElement>('[data-icon="play"]');
 
     let current = 0;
-    timer = window.setInterval(() => {
+    const tick = () => {
       if (document.hidden) return;
       slides[current].dataset.active = "false";
       current = (current + 1) % slides.length;
       slides[current].dataset.active = "true";
-    }, INTERVAL_MS);
-  }
+    };
 
-  function stopCoverSlideshow() {
-    if (timer !== undefined) window.clearInterval(timer);
-    timer = undefined;
+    const setPlaying = (playing: boolean) => {
+      stopCoverSlideshow();
+      if (playing) timer = window.setInterval(tick, INTERVAL_MS);
+      if (!toggle) return;
+      toggle.setAttribute(
+        "aria-label",
+        playing ? "Atura el passi de fotos" : "Reprèn el passi de fotos"
+      );
+      pauseIcon?.classList.toggle("hidden", !playing);
+      playIcon?.classList.toggle("hidden", playing);
+    };
+
+    toggle?.addEventListener("click", () => setPlaying(timer === undefined));
+
+    // WCAG 2.2.2: start paused for users who prefer reduced motion.
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    setPlaying(!reduceMotion);
   }
 
   document.addEventListener("astro:page-load", startCoverSlideshow);

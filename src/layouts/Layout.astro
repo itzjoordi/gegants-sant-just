@@ -1,38 +1,100 @@
 ---
+import "@fontsource/dancing-script/700.css";
 import "../styles/global.css";
+import { getImage } from "astro:assets";
+import { ViewTransitions } from "astro:transitions";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
-import { ViewTransitions } from "astro:transitions";
+import defaultOgSource from "../assets/portada/portada-4.webp";
+import { absoluteSrc, withBase } from "../utils/url";
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  imageAlt?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  type?: "website" | "article";
 }
 
+const OG_WIDTH = 1200;
+const OG_HEIGHT = 630;
+
+const defaultOg = await getImage({
+  src: defaultOgSource,
+  width: OG_WIDTH,
+  height: OG_HEIGHT,
+  format: "jpg",
+  quality: 80,
+});
+
 const {
-  title = "Colla Gegantera de Sant Just Desvern",
-  description = "Pàgina oficial de la Colla Gegantera de Sant Just Desvern",
+  title = "Colla Gegantera de Sant Just Desvern | Gegants i capgrossos",
+  description = "Colla gegantera de Sant Just Desvern (Baix Llobregat) des de 1984. Fem ballar gegants i capgrossos i busquem portadors i grallers per a la colla.",
+  image = absoluteSrc(defaultOg.src),
+  imageAlt = "La Colla Gegantera de Sant Just Desvern amb els seus gegants",
+  jsonLd,
+  type = "website",
 } = Astro.props;
+
+const pathname = Astro.url.pathname.endsWith("/")
+  ? Astro.url.pathname
+  : `${Astro.url.pathname}/`;
+const canonical = new URL(pathname, Astro.site).href;
+const siteName = "Colla Gegantera de Sant Just Desvern";
 ---
 
 <!doctype html>
 <html lang="ca">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/webp" href="/logo_gegants.webp" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/webp" href={withBase("/logo_gegants.webp")} />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href={withBase("/apple-touch-icon.png")}
+    />
+    <meta name="theme-color" content="#fbfbfd" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href={withBase("/sitemap-index.xml")} />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content={String(OG_WIDTH)} />
+    <meta property="og:image:height" content={String(OG_HEIGHT)} />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:locale" content="ca_ES" />
+    <meta property="og:site_name" content={siteName} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+
+    {
+      jsonLd && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(jsonLd)}
+        />
+      )
+    }
     <ViewTransitions />
   </head>
   <body class="bg-canvas font-sans text-ink">
+    <a
+      href="#contingut"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-full focus:bg-blue focus:text-white focus:text-[15px] focus:outline-none focus:ring-2 focus:ring-link focus:ring-offset-2 focus:ring-offset-canvas"
+    >
+      Salta al contingut
+    </a>
     <Navbar />
     <slot />
     <Footer />
